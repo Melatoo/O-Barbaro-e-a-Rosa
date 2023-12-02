@@ -6,8 +6,9 @@ public class Barbaro {
 
     public Barbaro() {
         Random gerador = new Random();
-        energia = gerador.nextInt(51) + 50;
+        energia = gerador.nextInt(30) + 20;
         temMachado = false;
+
     }
 
     public void comerHambuguer() {
@@ -25,4 +26,10 @@ public class Barbaro {
     public void usarPoção() {
         
     }
+
+    public int getEnergia() {
+        return energia;
+    }
+
+
 }

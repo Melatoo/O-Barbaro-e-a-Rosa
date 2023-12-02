@@ -1,10 +1,7 @@
 /*Feito por: Thiago Melato */
 
-public abstract class ComandosConhecidos {
-    private static final String[] comandos = {};
-
-    private ComandosConhecidos() {
-    }
+public class ComandosConhecidos {
+    private static String[] comandos = {"andar", "sair", "ajuda", "usar pocao"};
 
     public static void mostrarComandos() {
         System.out.println("Comandos disponíveis:");
