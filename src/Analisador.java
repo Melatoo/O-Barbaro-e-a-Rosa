@@ -1,13 +1,9 @@
 import java.util.Scanner;
 
-public class Analisador {
-    private Scanner scanner;
+public abstract class Analisador {
+    private static Scanner scanner = new Scanner(System.in);
 
-    public Analisador() {
-        scanner = new Scanner(System.in);
-    }
-
-    public Comando analisarComando() {
+    public static Comando analisarComando() {
         String comando = scanner.nextLine();
         String palavra1 = null;
         String palavra2 = null;

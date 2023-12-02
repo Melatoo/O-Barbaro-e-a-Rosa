@@ -1,3 +1,5 @@
+/*Feito por Thiago Melato */
+
 import java.util.HashMap;
 
 public class Ambiente {
@@ -29,5 +31,9 @@ public class Ambiente {
             saidas += saida + " ";
         }
         return saidas;
+    }
+
+    public String getNome() {
+        return nome;
     }
 }

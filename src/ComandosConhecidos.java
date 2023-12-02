@@ -1,7 +1,7 @@
 /*Feito por: Thiago Melato */
 
 public class ComandosConhecidos {
-    private static String[] comandos = {"andar", "sair", "ajuda", "usar pocao"};
+    private static String[] comandos = {"andar", "sair", "ajuda", "usar poçao"};
 
     public static void mostrarComandos() {
         System.out.println("Comandos disponíveis:");
@@ -12,12 +12,11 @@ public class ComandosConhecidos {
     }
 
     public static boolean comandoValido(String comando) {
+        comando.toLowerCase();
         for (String comandoConhecido : comandos) {
-            if (comandoConhecido.equals(comando)) {
+            if (comandoConhecido.equals(comando))
                 return true;
-            }
         }
         return false;
     }
-
 }

@@ -23,6 +23,7 @@ public class Jogo {
         barbaro = new Barbaro();
         fimDeJogo = false;
         inicializarAmbientes();
+        imprimirBoasVindas();
     }
 
     public void inicializarAmbientes() {
@@ -57,5 +58,28 @@ public class Jogo {
         ambienteAtual = ghanor;
     }
     
+    public void imprimirBoasVindas() {
+        System.out.println();
+        System.out.println("Bem-vindo ao mundo de Ghanor!");
+        System.out.println("Ghanor é um mundo de fantasia medieval, cheio de magia e aventuras.");
+        System.out.println("Digite 'ajuda' se você precisar de ajuda.");
+        System.out.println();
+        System.out.println(ambienteAtual.getNome());
+        System.out.print("Saídas: ");
+        String saidas = ambienteAtual.getSaidas();
+        System.out.println(saidas);
+    }
+
+    public void jogar() {
+        while (!fimDeJogo) {
+            comando = Analisador.analisarComando();
+            processarComando(comando);
+        }
+        System.out.println("Obrigado por jogar. Até mais!");
+    }
+
+    public void processarComando(Comando comando) {
+        
+    }
 
 }
