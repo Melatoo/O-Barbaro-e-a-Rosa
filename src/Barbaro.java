@@ -15,8 +15,12 @@ public class Barbaro {
         energia += 20;
     }
 
+    public void andar(){
+        energia--;
+    }
+
     public void derrotarMonstro() {
-        energia = temMachado ? energia : energia--;
+        energia = temMachado ? energia : --energia;
     }
 
     public void pegarMachado() {
@@ -24,7 +28,7 @@ public class Barbaro {
     }
 
     public void usarPoção() {
-        
+
     }
 
     public int getEnergia() {

@@ -8,14 +8,17 @@ public abstract class Analisador {
         String palavra1 = null;
         String palavra2 = null;
 
-        try (Scanner tokenizer = new Scanner(comando)) {
+        Scanner tokenizer = new Scanner(comando);
+
+        if (tokenizer.hasNext()) {
+            palavra1 = tokenizer.next();
             if (tokenizer.hasNext()) {
-                palavra1 = tokenizer.next();
-                if (tokenizer.hasNext()) {
-                    palavra2 = tokenizer.next();
-                }
+                palavra2 = tokenizer.next();
             }
         }
+
+        tokenizer.close();
+
         if (ComandosConhecidos.comandoValido(palavra1)) {
             return new Comando(palavra1, palavra2);
         }

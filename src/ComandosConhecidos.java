@@ -1,12 +1,12 @@
 /*Feito por: Thiago Melato */
 
 public class ComandosConhecidos {
-    private static String[] comandos = {"andar", "sair", "ajuda", "usar poçao"};
+    private static String[] comandos = {"ir", "sair", "ajuda", "usar poçao"};
 
     public static void mostrarComandos() {
-        System.out.println("Comandos disponíveis:");
+        System.out.print("Comandos disponíveis: ");
         for (String comando : comandos) {
-            System.out.print(comando + " ");
+            System.out.print("'" + comando + "' ");
         }
         System.out.println();
     }

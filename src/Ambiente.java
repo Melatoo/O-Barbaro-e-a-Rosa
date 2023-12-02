@@ -21,14 +21,15 @@ public class Ambiente {
         saidas.put("oeste", oeste);
     }
 
-    public void getSaida(String direcao) {
-        saidas.get(direcao);
+    public Ambiente getSaida(String direcao) {
+        return saidas.get(direcao);
     }
 
     public String getSaidas() {
         String saidas = "";
         for (String saida : this.saidas.keySet()) {
-            saidas += saida + " ";
+            if(getSaida(saida) != null)
+                saidas += saida + " ";
         }
         return saidas;
     }
