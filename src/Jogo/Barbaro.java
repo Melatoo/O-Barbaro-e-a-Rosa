@@ -1,5 +1,12 @@
+package Jogo;
 import java.util.HashMap;
 import java.util.Random;
+
+import Interface.InterfaceDeUsuario;
+import Itens.Dica;
+import Itens.Hamburguer;
+import Itens.Item;
+import Itens.Machado;
 
 public class Barbaro {
     private int energia;

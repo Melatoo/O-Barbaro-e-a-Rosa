@@ -1,7 +1,10 @@
+package Jogo;
 
 /*Feito por Thiago Melato */
 import java.util.HashMap;
 import java.util.Random;
+
+import Itens.Item;
 
 public class Ambiente {
     private String nome;

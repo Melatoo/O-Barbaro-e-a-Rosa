@@ -1,3 +1,4 @@
+package Comandos;
 /*Feito por: Thiago Melato */
 
 public class ComandosConhecidos {
