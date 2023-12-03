@@ -5,11 +5,13 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import java.awt.BorderLayout;
 import java.awt.Label;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.awt.image.BufferedImage;
 
@@ -25,6 +27,7 @@ public class InterfaceDeUsuario extends JFrame{
     //sul
     private JTextArea log;
     private JTextField entrada;
+    private String comando;
     private JButton enviaComando;
 
     private void inicializandoBordaEsquerda(){
@@ -50,11 +53,14 @@ public class InterfaceDeUsuario extends JFrame{
     private void inicializandoBordaDireita(){
         dicas = new JTextArea();
         dicas.setEditable(false);
+        dicas.setLineWrap(true);
+        JScrollPane jsp = new JScrollPane(dicas);
+        jsp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         JPanel direita = new JPanel();
         direita.setLayout(new BoxLayout(direita, BoxLayout.Y_AXIS));
         add(direita, BorderLayout.EAST);
         direita.add(new Label("Dicas encontradas:"));
-        direita.add(dicas);
+        direita.add(jsp);
     }
 
     private void inicializandoBordaInferior(){
@@ -64,12 +70,15 @@ public class InterfaceDeUsuario extends JFrame{
         log = new JTextArea();
         log.setRows(8);
         log.setEditable(false);
-        sul.add(log);
+        JScrollPane jsp = new JScrollPane(log);
+        sul.add(jsp);
         JPanel sulEntrada = new JPanel();
         sulEntrada.setLayout(new BoxLayout(sulEntrada, BoxLayout.X_AXIS));
         entrada = new JTextField();
         sulEntrada.add(entrada);
         enviaComando = new JButton(">");
+        ClickChecker clickChecker = new ClickChecker();
+        enviaComando.addActionListener(clickChecker);
         sulEntrada.add(enviaComando);
         sul.add(sulEntrada);
     }
@@ -92,5 +101,25 @@ public class InterfaceDeUsuario extends JFrame{
 
     public void adicionarLog(String texto){
         log.append(texto + "\n");
+        log.setCaretPosition(log.getDocument().getLength());
+    }
+
+    public void setEnergia(int energia){
+        energiaRestante.setText("Energia Restante: " + energia);
+    }
+
+    public void setDurabilidade(int durabilidade){
+        durabilidadeMachado.setText("Durabilidade do Machado: " + durabilidade);
+    }
+
+    public void adicionarDica(String dica){
+        dicas.append(dica + "\n");
+    }
+
+    private class ClickChecker implements ActionListener {
+        @Override
+        public void actionPerformed(java.awt.event.ActionEvent e) {
+
+        }
     }
 }

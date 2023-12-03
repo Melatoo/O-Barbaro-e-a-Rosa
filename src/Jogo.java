@@ -54,7 +54,7 @@ public class Jogo {
         tempAmbiente.adicionarItem(dica1);
 
         tempAmbiente = ambientes.get(nomeAmbientes[gerador.nextInt(nomeAmbientes.length)]);
-        Item dica2 = new Dica("Dica2", "A rosa não está em" + ambienteSemRosa, tempAmbiente.getNome());
+        Item dica2 = new Dica("Dica2", "A rosa não está em " + ambienteSemRosa, tempAmbiente.getNome());
         tempAmbiente.adicionarItem(dica2);
 
         tempAmbiente = ambientes.get(nomeAmbientes[gerador.nextInt(nomeAmbientes.length)]);
@@ -167,6 +167,8 @@ public class Jogo {
 
     public void jogar() {
         while (!fimDeJogo) {
+            interfaceDeUsuario.setEnergia(barbaro.getEnergia());
+            interfaceDeUsuario.setDurabilidade(barbaro.temMachado() ? barbaro.getDurabilidadeMachado() : 0);
             comando = Analisador.analisarComando();
             processarComando(comando);
         }
@@ -200,7 +202,7 @@ public class Jogo {
             interfaceDeUsuario.adicionarLog(barbaro.olharBolsa());
 
         else if (palavraDeComando.equals("usar"))
-            interfaceDeUsuario.adicionarLog(barbaro.usarItem(comando.getSegundaPalavra()));
+            interfaceDeUsuario.adicionarLog(barbaro.usarItem(comando.getSegundaPalavra(), interfaceDeUsuario));
 
         else if (palavraDeComando.equals("pocao"))
             usarPoção();

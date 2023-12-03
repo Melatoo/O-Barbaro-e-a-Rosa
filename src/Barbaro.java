@@ -4,6 +4,7 @@ import java.util.Random;
 public class Barbaro {
     private int energia;
     private HashMap<String, Item> itens;
+    private Machado machado;
 
     public Barbaro() {
         Random gerador = new Random();
@@ -32,7 +33,7 @@ public class Barbaro {
     }
 
     public String derrotarMonstro() {
-        Machado machado = (Machado) itens.get("machado");
+        machado = (Machado) itens.get("machado");
         if (machado == null) {
             energia--;
             return "Você derrotou o monstro com suas mãos!";
@@ -80,15 +81,30 @@ public class Barbaro {
         }
     }
 
-    public String usarItem(String segundaPalavra) {
+    public String usarItem(String segundaPalavra, InterfaceDeUsuario interfaceDeUsuario) {
         Item item = itens.get(segundaPalavra);
         if (item != null) {
+            itens.remove(item.getNome());
             if (item instanceof Hamburguer)
                 return comerHambuguer();
+            else if(item instanceof Dica){
+                interfaceDeUsuario.adicionarDica(item.usar());
+                return "Dica adicionada!";
+            }
             else
                 return item.usar();
         } else {
             return "Esse item não está na sua bolsa!";
         }
     }
+
+    public int getDurabilidadeMachado(){
+        return machado.getDurabilidade();
+    }
+
+    public boolean temMachado(){
+        return machado != null;
+    }
+
+    
 }
