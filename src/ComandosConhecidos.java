@@ -4,12 +4,12 @@ public class ComandosConhecidos {
     private static String[] comandos = { "ir", "sair", "ajuda", "pocao", "pegar", "bolsa", "usar",
             "observar" };
 
-    public static void mostrarComandos() {
-        System.out.print("Comandos disponíveis: ");
+    public static String mostrarComandos() {
+        String comandosDisponiveis = "Comandos disponíveis: ";
         for (String comando : comandos) {
-            System.out.print("'" + comando + "' ");
+            comandosDisponiveis += "'" + comando + "' ";
         }
-        System.out.println();
+        return comandosDisponiveis;
     }
 
     public static boolean comandoValido(String comando) {

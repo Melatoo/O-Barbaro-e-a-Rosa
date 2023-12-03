@@ -15,15 +15,15 @@ public class Barbaro {
         itens.put(item.getNome(), item);
     }
 
-    public void comerHambuguer() {
+    public String comerHambuguer() {
         Item hamburguer = itens.get("hamburguer");
         if (hamburguer != null) {
             hamburguer.usar();
             energia += 10;
-            System.out.println("Energia atual: " + energia);
             itens.remove(hamburguer.getNome());
+            return "Energia atual: " + energia;
         } else {
-            System.out.println("Você não tem o hamburguer...");
+            return "Você não tem o hamburguer...";
         }
     }
 
@@ -31,18 +31,19 @@ public class Barbaro {
         energia--;
     }
 
-    public void derrotarMonstro() {
+    public String derrotarMonstro() {
         Machado machado = (Machado) itens.get("machado");
         if (machado == null) {
             energia--;
-            System.out.println("Você derrotou o monstro com suas mãos!");
+            return "Você derrotou o monstro com suas mãos!";
         } else {
             machado.usar();
-            System.out.println("Você derrotou o monstro com seu machado!");
+            String mensagem = "Você derrotou o monstro com seu machado!";
             if (machado.getDurabilidade() == 0) {
-                System.out.println("O machado quebrou!");
+                mensagem += "O machado quebrou!";
                 machado = null;
             }
+            return mensagem;
         }
     }
 
@@ -50,44 +51,44 @@ public class Barbaro {
         return energia;
     }
 
-    public void olharBolsa() {
+    public String olharBolsa() {
         String itensNaBolsa = "";
         for (String item : itens.keySet()) {
             itensNaBolsa += item + " ";
         }
         if (itensNaBolsa.equals(""))
-            System.out.println("A bolsa está vazia");
+            return "A bolsa está vazia";
         else
-            System.out.println("Itens na bolsa: " + itensNaBolsa);
+            return "Itens na bolsa: " + itensNaBolsa;
     }
 
-    public void lerDescricaoItem(String segundaPalavra) {
+    public String lerDescricaoItem(String segundaPalavra) {
         if (itens.containsKey(segundaPalavra))
-            System.out.println(itens.get(segundaPalavra).getDescricao());
+            return itens.get(segundaPalavra).getDescricao();
         else
-            System.out.println("Esse item não está na sua bolsa!");
+            return "Esse item não está na sua bolsa!";
     }
 
-    public void pegarItem(String segundaPalavra, Ambiente ambienteAtual) {
+    public String pegarItem(String segundaPalavra, Ambiente ambienteAtual) {
         Item item = ambienteAtual.getItem(segundaPalavra);
         if (item != null) {
             adicionarItem(item);
             ambienteAtual.removerItem(segundaPalavra);
-            System.out.println("Você pegou o item " + segundaPalavra);
+            return "Você pegou o item " + segundaPalavra;
         } else {
-            System.out.println("Esse item não está no ambiente!");
+            return "Esse item não está no ambiente!";
         }
     }
 
-    public void usarItem(String segundaPalavra) {
+    public String usarItem(String segundaPalavra) {
         Item item = itens.get(segundaPalavra);
         if (item != null) {
             if (item instanceof Hamburguer)
-                comerHambuguer();
+                return comerHambuguer();
             else
-                item.usar();
+                return item.usar();
         } else {
-            System.out.println("Esse item não está na sua bolsa!");
+            return "Esse item não está na sua bolsa!";
         }
     }
 }

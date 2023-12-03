@@ -3,7 +3,7 @@ public class Dica extends Item {
         super(nome, descricao, localizacao);
     }
 
-    public void usar() {
-        System.out.println("Dica: " + getDescricao());
+    public String usar() {
+        return "Dica: " + getDescricao();
     }
 }

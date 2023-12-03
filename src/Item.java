@@ -21,5 +21,5 @@ public abstract class Item {
         return localizacao;
     }
 
-    public abstract void usar();
+    public abstract String usar();
 }

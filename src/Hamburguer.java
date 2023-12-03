@@ -4,7 +4,7 @@ public class Hamburguer extends Item {
     }
 
     @Override
-    public void usar() {
-        System.out.println("Você comeu o hamburguer");
+    public String usar() {
+        return "Você comeu o hamburguer";
     }
 }

@@ -7,6 +7,7 @@ public class Jogo {
     private Comando comando;
     private Ambiente ambienteAtual;
     private Ambiente ambienteComRosa;
+    private InterfaceDeUsuario interfaceDeUsuario;
     private HashMap<String, Ambiente> ambientes;
     private boolean fimDeJogo;
 
@@ -14,6 +15,7 @@ public class Jogo {
         barbaro = new Barbaro();
         fimDeJogo = false;
         ambientes = new HashMap<String, Ambiente>();
+        interfaceDeUsuario = new InterfaceDeUsuario();
     }
 
     public static Jogo getInstance() {
@@ -23,6 +25,7 @@ public class Jogo {
     }
 
     public void iniciarJogo() {
+        interfaceDeUsuario.setVisible(true);
         inicializarAmbientes();
         inicializarItens();
         imprimirBoasVindas();
@@ -98,18 +101,17 @@ public class Jogo {
 
     public void usarPoção() {
         if (ambienteAtual == ambienteComRosa) {
-            System.out.println("Você encontrou a rosa!");
-            System.out.println("Você venceu o jogo!");
+            interfaceDeUsuario.adicionarLog("Você encontrou a rosa!");
+            interfaceDeUsuario.adicionarLog("Você venceu o jogo!");
             fimDeJogo = true;
         } else {
-            System.out.println("Você não está no ambiente certo!");
-            System.out.println("A rosa estava em: " + ambienteComRosa.getNome());
+            interfaceDeUsuario.adicionarLog("Você não está no ambiente certo!");
+            interfaceDeUsuario.adicionarLog("A rosa estava em: " + ambienteComRosa.getNome());
             fimDeJogo = true;
         }
     }
 
     public void inicializarAmbientes() {
-
         Ambiente ghanor = new Ambiente("Reino de Ghanor");
         Ambiente floresta = new Ambiente("Floresta Alta");
         Ambiente rochaCeleste = new Ambiente("Rocha Celeste");
@@ -150,19 +152,17 @@ public class Jogo {
     }
 
     public void imprimirBoasVindas() {
-        System.out.println();
-        System.out.println("Bem-vindo ao mundo de Ghanor!");
-        System.out.println("Ghanor é um mundo de fantasia medieval, cheio de magia e aventuras.");
-        System.out.println("Você é um bárbaro que está em uma jornada para a rosa que salvará seus amigos.");
-        System.out.println("Você precisa encontrar a rosa antes que seja tarde demais.");
-        System.out.println("Você tem " + barbaro.getEnergia() + " de energia.");
-        ComandosConhecidos.mostrarComandos();
-        System.out.println("Digite 'ajuda' se você precisar de ajuda.");
-        System.out.println();
-        System.out.println(ambienteAtual.getNome());
-        System.out.print("Saídas: ");
+        interfaceDeUsuario.adicionarLog("Bem-vindo ao mundo de Ghanor!");
+        interfaceDeUsuario.adicionarLog("Ghanor é um mundo de fantasia medieval, cheio de magia e aventuras.");
+        interfaceDeUsuario.adicionarLog("Você é um bárbaro que está em uma jornada para a rosa que salvará seus amigos.");
+        interfaceDeUsuario.adicionarLog("Você precisa encontrar a rosa antes que seja tarde demais.");
+        interfaceDeUsuario.adicionarLog("Você tem " + barbaro.getEnergia() + " de energia.");
+        interfaceDeUsuario.adicionarLog(ComandosConhecidos.mostrarComandos());
+        interfaceDeUsuario.adicionarLog("Digite 'ajuda' se você precisar de ajuda.");
+        interfaceDeUsuario.adicionarLog(ambienteAtual.getNome());
+        interfaceDeUsuario.adicionarLog("Saídas: ");
         String saidas = ambienteAtual.getSaidas();
-        System.out.println(saidas);
+        interfaceDeUsuario.adicionarLog(saidas);
     }
 
     public void jogar() {
@@ -170,12 +170,12 @@ public class Jogo {
             comando = Analisador.analisarComando();
             processarComando(comando);
         }
-        System.out.println("Obrigado por jogar. Até mais!");
+        interfaceDeUsuario.adicionarLog("Obrigado por jogar. Até mais!");
     }
 
     private void processarComando(Comando comando) {
         if (comando.ehDesconhecido()) {
-            System.out.println("Eu não entendi o que você disse...");
+            interfaceDeUsuario.adicionarLog("Eu não entendi o que você disse...");
             return;
         }
 
@@ -194,31 +194,31 @@ public class Jogo {
             observar();
 
         else if (palavraDeComando.equals("pegar"))
-            barbaro.pegarItem(comando.getSegundaPalavra(), ambienteAtual);
+            interfaceDeUsuario.adicionarLog(barbaro.pegarItem(comando.getSegundaPalavra(), ambienteAtual));
 
         else if (palavraDeComando.equals("bolsa"))
-            barbaro.olharBolsa();
+            interfaceDeUsuario.adicionarLog(barbaro.olharBolsa());
 
         else if (palavraDeComando.equals("usar"))
-            barbaro.usarItem(comando.getSegundaPalavra());
+            interfaceDeUsuario.adicionarLog(barbaro.usarItem(comando.getSegundaPalavra()));
 
         else if (palavraDeComando.equals("pocao"))
             usarPoção();
     }
 
     private void observar() {
-        System.out.println("Você está em " + ambienteAtual.getNome());
-        System.out.println("Saídas: " + ambienteAtual.getSaidas());
+        interfaceDeUsuario.adicionarLog("Você está em " + ambienteAtual.getNome());
+        interfaceDeUsuario.adicionarLog("Saídas: " + ambienteAtual.getSaidas());
     }
 
     private void imprimirAjuda() {
-        System.out.println("Suas palavras de comando são:");
-        ComandosConhecidos.mostrarComandos();
+        interfaceDeUsuario.adicionarLog("Suas palavras de comando são:");
+        interfaceDeUsuario.adicionarLog(ComandosConhecidos.mostrarComandos());
     }
 
     private void irParaAmbiente(Comando comando) {
         if (!comando.temSegundaPalavra()) {
-            System.out.println("Ir para onde?");
+            interfaceDeUsuario.adicionarLog("Ir para onde?");
             return;
         }
 
@@ -226,7 +226,7 @@ public class Jogo {
         Ambiente proximoAmbiente = ambienteAtual.getSaida(direcao);
 
         if (proximoAmbiente == null)
-            System.out.println("Essa saída não existe!");
+            interfaceDeUsuario.adicionarLog("Essa saída não existe!");
 
         else {
             ambienteAtual = proximoAmbiente;
@@ -235,13 +235,13 @@ public class Jogo {
                 barbaro.derrotarMonstro();
             }
             if (!barbaroMorreu()) {
-                System.out.println("Energia restante: " + barbaro.getEnergia());
-                System.out.println(ambienteAtual.getNome());
+                interfaceDeUsuario.adicionarLog("Energia restante: " + barbaro.getEnergia());
+                interfaceDeUsuario.adicionarLog(ambienteAtual.getNome());
                 if (ambienteAtual.quantidadeItens() > 0)
-                    System.out.println("Você encontra os seguintes itens: " + ambienteAtual.getItens());
-                System.out.print("Saídas: ");
+                    interfaceDeUsuario.adicionarLog("Você encontra os seguintes itens: " + ambienteAtual.getItens());
+                interfaceDeUsuario.adicionarLog("Saídas: ");
                 String saidas = ambienteAtual.getSaidas();
-                System.out.println(saidas);
+                interfaceDeUsuario.adicionarLog(saidas);
                 redefinirInfestacao();
             }
         }
@@ -249,7 +249,7 @@ public class Jogo {
 
     private boolean barbaroMorreu() {
         if (barbaro.getEnergia() <= 0) {
-            System.out.println("Você morreu!");
+            interfaceDeUsuario.adicionarLog("Você morreu!");
             fimDeJogo = true;
             return true;
         }
