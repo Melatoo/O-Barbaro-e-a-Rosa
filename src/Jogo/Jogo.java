@@ -50,6 +50,8 @@ public class Jogo {
         inicializarAmbientes();
         inicializarItens();
         imprimirBoasVindas();
+        GUI.setEnergia(barbaro.getEnergia());
+        GUI.setDurabilidade(0);
         gerarGabarito();
     }
 
@@ -223,10 +225,10 @@ public class Jogo {
      */
 
     public void jogar(String comandoInserido) {
-        GUI.setEnergia(barbaro.getEnergia());
-        GUI.setDurabilidade(barbaro.temMachado() ? barbaro.getDurabilidadeMachado() : 0);
         comando = Analisador.analisarComando(comandoInserido);
         processarComando(comando);
+        GUI.setEnergia(barbaro.getEnergia());
+        GUI.setDurabilidade(barbaro.temMachado() ? barbaro.getDurabilidadeMachado() : 0);
         if(fimDeJogo){
             GUI.dispose();
         }
