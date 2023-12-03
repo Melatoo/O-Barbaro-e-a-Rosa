@@ -1,3 +1,4 @@
+package Comandos;
 import java.util.Scanner;
 
 public abstract class Analisador {

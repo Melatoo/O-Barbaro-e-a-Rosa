@@ -1,5 +1,7 @@
+package Itens;
+
 public class Dica extends Item {
-    Dica(String nome, String descricao, String localizacao) {
+    public Dica(String nome, String descricao, String localizacao) {
         super(nome, descricao, localizacao);
     }
 

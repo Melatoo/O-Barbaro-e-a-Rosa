@@ -1,3 +1,4 @@
+package Itens;
 public class Machado extends Item {
     private int durabilidade;
 

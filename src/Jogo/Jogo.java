@@ -1,8 +1,19 @@
+package Jogo;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Random;
+
+import Comandos.Analisador;
+import Comandos.Comando;
+import Comandos.ComandosConhecidos;
+import Interface.InterfaceDeUsuario;
+import Itens.Dica;
+import Itens.Hamburguer;
+import Itens.Item;
+import Itens.Machado;
 
 public class Jogo {
     private static Jogo instance;

@@ -1,3 +1,5 @@
+package Interface;
+
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -43,7 +45,8 @@ public class InterfaceDeUsuario extends JFrame {
     private void inicializandoBordaCentro() {
         try {
             BufferedImage imagem = ImageIO.read(
-                    new File(System.getProperty("java.class.path") + File.separatorChar + "O barbaro e a rosa.png"));
+                    new File(System.getProperty("java.class.path") + File.separatorChar
+                            + "interface/O barbaro e a rosa.png"));
             JLabel il = new JLabel(new ImageIcon(imagem));
             add(il, BorderLayout.CENTER);
         } catch (Exception e) {
@@ -125,7 +128,7 @@ public class InterfaceDeUsuario extends JFrame {
     private class ClickChecker implements ActionListener {
         @Override
         public void actionPerformed(java.awt.event.ActionEvent e) {
-            
+
         }
     }
 }
