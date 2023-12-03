@@ -14,8 +14,13 @@ public class Ambiente {
         itens = new HashMap<String, Item>();
         this.nome = nome;
         Random gerador = new Random();
-        this.infestado = gerador.nextInt(5) == 1;
+        // 25% de chance de ser infestado
+        this.infestado = gerador.nextInt(4) == 1;
     }
+
+    /*
+     * @param Ambiente ambientes vizinhos
+     */
 
     public void ajustarSaidas(Ambiente norte, Ambiente leste, Ambiente sul, Ambiente oeste) {
         saidas.put("norte", norte);
@@ -24,9 +29,20 @@ public class Ambiente {
         saidas.put("oeste", oeste);
     }
 
+    /*
+     * @param String direcao
+     * 
+     * @return Ambiente ambiente com a direção passada
+     */
+
     public Ambiente getSaida(String direcao) {
         return saidas.get(direcao);
     }
+
+    /*
+     * 
+     * @return String itens no ambiente
+     */
 
     public String getItens() {
         String itensNoAmbiente = "";
@@ -37,9 +53,19 @@ public class Ambiente {
         return itensNoAmbiente;
     }
 
+    /*
+     * adiciona um item no ambiente
+     * 
+     * @param Item item a ser adicionado
+     */
+
     public void adicionarItem(Item item) {
         itens.put(item.getNome(), item);
     }
+
+    /*
+     * @return String todas saidas do ambiente
+     */
 
     public String getSaidas() {
         String saidas = "";
@@ -62,6 +88,12 @@ public class Ambiente {
         return itens.get(nomeItem);
     }
 
+    /*
+     * remove um item do ambiente
+     * 
+     * @param String nome do item a ser removido
+     */
+
     public void removerItem(String nomeItem) {
         if (itens.containsKey(nomeItem))
             itens.remove(nomeItem);
@@ -74,6 +106,8 @@ public class Ambiente {
 
     public void setInfestado() {
         Random gerador = new Random();
-        infestado = gerador.nextInt(5) == 1;
+        infestado = gerador.nextInt(4) == 1;
+        if (infestado)
+            System.out.println("O ambiente " + nome + " foi infestado!");
     }
 }

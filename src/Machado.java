@@ -10,6 +10,12 @@ public class Machado extends Item {
         return durabilidade;
     }
 
+    /*
+     * usa o machado, diminuindo sua durabilidade
+     * 
+     * @return String mensagem de uso do machado
+     */
+
     @Override
     public String usar() {
         durabilidade--;

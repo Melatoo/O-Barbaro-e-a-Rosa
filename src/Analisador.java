@@ -3,6 +3,11 @@ import java.util.Scanner;
 public abstract class Analisador {
     private static Scanner scanner = new Scanner(System.in);
 
+    /*
+     * analisa o comando digitado pelo usuário
+     * @return Comando comando e analisado
+     */
+
     public static Comando analisarComando() {
         String comando = scanner.nextLine();
         String palavra1 = null;
@@ -19,6 +24,7 @@ public abstract class Analisador {
 
         tokenizer.close();
 
+        // verifica se o comando é válido, se não for
         if (ComandosConhecidos.comandoValido(palavra1)) {
             return new Comando(palavra1, palavra2);
         }

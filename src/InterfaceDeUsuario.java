@@ -15,22 +15,22 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.awt.image.BufferedImage;
 
-public class InterfaceDeUsuario extends JFrame{
+public class InterfaceDeUsuario extends JFrame {
 
-    //esquerda
+    // esquerda
     private Label energiaRestante;
     private Label durabilidadeMachado;
 
-    //direita
+    // direita
     private JTextArea dicas;
 
-    //sul
+    // sul
     private JTextArea log;
     private JTextField entrada;
     private String comando;
     private JButton enviaComando;
 
-    private void inicializandoBordaEsquerda(){
+    private void inicializandoBordaEsquerda() {
         energiaRestante = new Label("Energia Restante: ");
         durabilidadeMachado = new Label("Durabilidade do Machado: ");
         JPanel esquerda = new JPanel();
@@ -40,9 +40,10 @@ public class InterfaceDeUsuario extends JFrame{
         esquerda.add(durabilidadeMachado);
     }
 
-    private void inicializandoBordaCentro(){
-        try{
-            BufferedImage imagem = ImageIO.read(new File(System.getProperty("java.class.path") + File.separatorChar + "O bárbaro e a rosa.png"));
+    private void inicializandoBordaCentro() {
+        try {
+            BufferedImage imagem = ImageIO.read(
+                    new File(System.getProperty("java.class.path") + File.separatorChar + "O barbaro e a rosa.png"));
             JLabel il = new JLabel(new ImageIcon(imagem));
             add(il, BorderLayout.CENTER);
         } catch (Exception e) {
@@ -50,7 +51,7 @@ public class InterfaceDeUsuario extends JFrame{
         }
     }
 
-    private void inicializandoBordaDireita(){
+    private void inicializandoBordaDireita() {
         dicas = new JTextArea();
         dicas.setEditable(false);
         dicas.setLineWrap(true);
@@ -63,7 +64,7 @@ public class InterfaceDeUsuario extends JFrame{
         direita.add(jsp);
     }
 
-    private void inicializandoBordaInferior(){
+    private void inicializandoBordaInferior() {
         JPanel sul = new JPanel();
         sul.setLayout(new BoxLayout(sul, BoxLayout.Y_AXIS));
         add(sul, BorderLayout.SOUTH);
@@ -83,7 +84,7 @@ public class InterfaceDeUsuario extends JFrame{
         sul.add(sulEntrada);
     }
 
-    public InterfaceDeUsuario(){
+    public InterfaceDeUsuario() {
         super("O Bárbaro e a Rosa");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -99,20 +100,25 @@ public class InterfaceDeUsuario extends JFrame{
         pack();
     }
 
-    public void adicionarLog(String texto){
+    public void adicionarLog(String texto) {
         log.append(texto + "\n");
         log.setCaretPosition(log.getDocument().getLength());
     }
 
-    public void setEnergia(int energia){
+    public void adicionarLogSemQuebra(String texto) {
+        log.append(texto);
+        log.setCaretPosition(log.getDocument().getLength());
+    }
+
+    public void setEnergia(int energia) {
         energiaRestante.setText("Energia Restante: " + energia);
     }
 
-    public void setDurabilidade(int durabilidade){
+    public void setDurabilidade(int durabilidade) {
         durabilidadeMachado.setText("Durabilidade do Machado: " + durabilidade);
     }
 
-    public void adicionarDica(String dica){
+    public void adicionarDica(String dica) {
         dicas.append(dica + "\n");
     }
 
