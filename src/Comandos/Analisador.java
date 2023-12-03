@@ -9,12 +9,11 @@ public abstract class Analisador {
      * @return Comando comando e analisado
      */
 
-    public static Comando analisarComando() {
-        String comando = scanner.nextLine();
+    public static Comando analisarComando(String comandoInserido) {
         String palavra1 = null;
         String palavra2 = null;
 
-        Scanner tokenizer = new Scanner(comando);
+        Scanner tokenizer = new Scanner(comandoInserido);
 
         if (tokenizer.hasNext()) {
             palavra1 = tokenizer.next().toLowerCase();

@@ -11,6 +11,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
+
+import Comandos.Analisador;
+import Jogo.Jogo;
+
 import java.awt.BorderLayout;
 import java.awt.Label;
 import java.awt.event.ActionListener;
@@ -25,6 +29,7 @@ public class InterfaceDeUsuario extends JFrame {
 
     // direita
     private JTextArea dicas;
+    private Jogo jogo;
 
     // sul
     private JTextArea log;
@@ -78,11 +83,11 @@ public class InterfaceDeUsuario extends JFrame {
         sul.add(jsp);
         JPanel sulEntrada = new JPanel();
         sulEntrada.setLayout(new BoxLayout(sulEntrada, BoxLayout.X_AXIS));
+        ClickChecker clickChecker = new ClickChecker();
         entrada = new JTextField();
+        entrada.addActionListener(clickChecker);
         sulEntrada.add(entrada);
         enviaComando = new JButton(">");
-        ClickChecker clickChecker = new ClickChecker();
-        enviaComando.addActionListener(clickChecker);
         sulEntrada.add(enviaComando);
         sul.add(sulEntrada);
     }
@@ -93,7 +98,6 @@ public class InterfaceDeUsuario extends JFrame {
 
         BorderLayout borderLayout = new BorderLayout();
         setLayout(borderLayout);
-
         inicializandoBordaEsquerda();
         inicializandoBordaCentro();
         inicializandoBordaDireita();
@@ -101,6 +105,9 @@ public class InterfaceDeUsuario extends JFrame {
 
         setResizable(false);
         pack();
+        jogo = Jogo.getInstance(this);
+        setVisible(true);
+        jogo.iniciarJogo();
     }
 
     public void adicionarLog(String texto) {
@@ -128,7 +135,12 @@ public class InterfaceDeUsuario extends JFrame {
     private class ClickChecker implements ActionListener {
         @Override
         public void actionPerformed(java.awt.event.ActionEvent e) {
-
+            jogo.jogar(entrada.getText());
+            entrada.setText("");
         }
+    }
+
+    public String getComando() {
+        return comando;
     }
 }

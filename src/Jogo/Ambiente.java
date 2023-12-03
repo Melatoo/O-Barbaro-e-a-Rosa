@@ -110,7 +110,5 @@ public class Ambiente {
     public void setInfestado() {
         Random gerador = new Random();
         infestado = gerador.nextInt(4) == 1;
-        if (infestado)
-            System.out.println("O ambiente " + nome + " foi infestado!");
     }
 }

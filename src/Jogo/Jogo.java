@@ -21,15 +21,15 @@ public class Jogo {
     private Comando comando;
     private Ambiente ambienteAtual;
     private Ambiente ambienteComRosa;
-    private InterfaceDeUsuario interfaceDeUsuario;
+    private InterfaceDeUsuario GUI;
     private HashMap<String, Ambiente> ambientes;
     private boolean fimDeJogo;
 
-    private Jogo() {
+    private Jogo(InterfaceDeUsuario GUI) {
         barbaro = new Barbaro();
         fimDeJogo = false;
         ambientes = new HashMap<String, Ambiente>();
-        interfaceDeUsuario = new InterfaceDeUsuario();
+        this.GUI = GUI;
     }
 
     /*
@@ -39,19 +39,18 @@ public class Jogo {
      * @return Jogo
      */
 
-    public static Jogo getInstance() {
-        if (instance == null)
-            instance = new Jogo();
+    public static Jogo getInstance(InterfaceDeUsuario GUI) {
+        if (instance == null){
+            instance = new Jogo(GUI);
+        }
         return instance;
     }
 
     public void iniciarJogo() {
-        interfaceDeUsuario.setVisible(true);
         inicializarAmbientes();
         inicializarItens();
         imprimirBoasVindas();
         gerarGabarito();
-        jogar();
     }
 
     /*
@@ -147,12 +146,12 @@ public class Jogo {
 
     public void usarPoção() {
         if (ambienteAtual == ambienteComRosa) {
-            interfaceDeUsuario.adicionarLog("Você encontrou a rosa!");
-            interfaceDeUsuario.adicionarLog("Você venceu o jogo!");
+            GUI.adicionarLog("Você encontrou a rosa!");
+            GUI.adicionarLog("Você venceu o jogo!");
             fimDeJogo = true;
         } else {
-            interfaceDeUsuario.adicionarLog("Você não está no ambiente certo!");
-            interfaceDeUsuario.adicionarLog("A rosa estava em: " + ambienteComRosa.getNome());
+            GUI.adicionarLog("Você não está no ambiente certo!");
+            GUI.adicionarLog("A rosa estava em: " + ambienteComRosa.getNome());
             fimDeJogo = true;
         }
     }
@@ -178,7 +177,7 @@ public class Jogo {
         floresta.ajustarSaidas(ghanor, rochaNegra, null, rochaCeleste);
         rochaCeleste.ajustarSaidas(null, floresta, null, null);
         kottar.ajustarSaidas(null, vila, ghanor, pantano);
-        vila.ajustarSaidas(null, null, praia, kottar);
+        vila.ajustarSaidas(praia, null, praia, kottar);
         castelo.ajustarSaidas(null, ghanor, null, lago);
         lago.ajustarSaidas(null, castelo, abismo, null);
         abismo.ajustarSaidas(lago, null, null, null);
@@ -206,32 +205,31 @@ public class Jogo {
      */
 
     public void imprimirBoasVindas() {
-        interfaceDeUsuario.adicionarLog("Bem-vindo ao mundo de Ghanor!");
-        interfaceDeUsuario.adicionarLog("Ghanor é um mundo de fantasia medieval, cheio de magia e aventuras.");
-        interfaceDeUsuario
-                .adicionarLog("Você é um bárbaro que está em uma jornada para a rosa que salvará seus amigos.");
-        interfaceDeUsuario.adicionarLog("Você precisa encontrar a rosa antes que seja tarde demais.");
-        interfaceDeUsuario.adicionarLog("Você tem " + barbaro.getEnergia() + " de energia.");
-        interfaceDeUsuario.adicionarLog(ComandosConhecidos.mostrarComandos());
-        interfaceDeUsuario.adicionarLog("Digite 'ajuda' se você precisar de ajuda.");
-        interfaceDeUsuario.adicionarLog(ambienteAtual.getNome());
-        interfaceDeUsuario.adicionarLogSemQuebra("Saídas: ");
+        GUI.adicionarLog("Bem-vindo ao mundo de Ghanor!");
+        GUI.adicionarLog("Ghanor é um mundo de fantasia medieval, cheio de magia e aventuras.");
+        GUI.adicionarLog("Você é um bárbaro que está em uma jornada para a rosa que salvará seus amigos.");
+        GUI.adicionarLog("Você precisa encontrar a rosa antes que seja tarde demais.");
+        GUI.adicionarLog("Você tem " + barbaro.getEnergia() + " de energia.");
+        GUI.adicionarLog(ComandosConhecidos.mostrarComandos());
+        GUI.adicionarLog("Digite 'ajuda' se você precisar de ajuda.");
+        GUI.adicionarLog(ambienteAtual.getNome());
+        GUI.adicionarLogSemQuebra("Saídas: ");
         String saidas = ambienteAtual.getSaidas();
-        interfaceDeUsuario.adicionarLog(saidas);
+        GUI.adicionarLog(saidas);
     }
 
     /*
      * inicia o jogo, enquanto o jogo não acabar, o jogo continua :O
      */
 
-    public void jogar() {
-        while (!fimDeJogo) {
-            interfaceDeUsuario.setEnergia(barbaro.getEnergia());
-            interfaceDeUsuario.setDurabilidade(barbaro.temMachado() ? barbaro.getDurabilidadeMachado() : 0);
-            comando = Analisador.analisarComando();
-            processarComando(comando);
+    public void jogar(String comandoInserido) {
+        GUI.setEnergia(barbaro.getEnergia());
+        GUI.setDurabilidade(barbaro.temMachado() ? barbaro.getDurabilidadeMachado() : 0);
+        comando = Analisador.analisarComando(comandoInserido);
+        processarComando(comando);
+        if(fimDeJogo){
+            GUI.dispose();
         }
-        interfaceDeUsuario.adicionarLog("Obrigado por jogar. Até mais!");
     }
 
     /*
@@ -242,7 +240,7 @@ public class Jogo {
 
     private void processarComando(Comando comando) {
         if (comando.ehDesconhecido()) {
-            interfaceDeUsuario.adicionarLog("Eu não entendi o que você disse...");
+            GUI.adicionarLog("Eu não entendi o que você disse...");
             return;
         }
 
@@ -261,13 +259,13 @@ public class Jogo {
             observar();
 
         else if (palavraDeComando.equals("pegar"))
-            interfaceDeUsuario.adicionarLog(barbaro.pegarItem(comando.getSegundaPalavra(), ambienteAtual));
+            GUI.adicionarLog(barbaro.pegarItem(comando.getSegundaPalavra(), ambienteAtual));
 
         else if (palavraDeComando.equals("bolsa"))
-            interfaceDeUsuario.adicionarLog(barbaro.olharBolsa());
+            GUI.adicionarLog(barbaro.olharBolsa());
 
         else if (palavraDeComando.equals("usar"))
-            interfaceDeUsuario.adicionarLog(barbaro.usarItem(comando.getSegundaPalavra(), interfaceDeUsuario));
+            GUI.adicionarLog(barbaro.usarItem(comando.getSegundaPalavra(), GUI));
 
         else if (palavraDeComando.equals("pocao"))
             usarPoção();
@@ -278,8 +276,8 @@ public class Jogo {
      */
 
     private void observar() {
-        interfaceDeUsuario.adicionarLog("Você está em " + ambienteAtual.getNome());
-        interfaceDeUsuario.adicionarLog("Saídas: " + ambienteAtual.getSaidas());
+        GUI.adicionarLog("Você está em " + ambienteAtual.getNome());
+        GUI.adicionarLog("Saídas: " + ambienteAtual.getSaidas());
     }
 
     /*
@@ -287,8 +285,8 @@ public class Jogo {
      */
 
     private void imprimirAjuda() {
-        interfaceDeUsuario.adicionarLog("Suas palavras de comando são:");
-        interfaceDeUsuario.adicionarLog(ComandosConhecidos.mostrarComandos());
+        GUI.adicionarLog("Suas palavras de comando são:");
+        GUI.adicionarLog(ComandosConhecidos.mostrarComandos());
     }
 
     /*
@@ -299,7 +297,7 @@ public class Jogo {
 
     private void irParaAmbiente(Comando comando) {
         if (!comando.temSegundaPalavra()) {
-            interfaceDeUsuario.adicionarLog("Ir para onde?");
+            GUI.adicionarLog("Ir para onde?");
             return;
         }
 
@@ -307,21 +305,21 @@ public class Jogo {
         Ambiente proximoAmbiente = ambienteAtual.getSaida(direcao);
 
         if (proximoAmbiente == null)
-            interfaceDeUsuario.adicionarLog("Essa saída não existe!");
+            GUI.adicionarLog("Essa saída não existe!");
 
         else {
             ambienteAtual = proximoAmbiente;
             barbaro.andar();
             if (ambienteAtual.getInfestado()) {
-                interfaceDeUsuario.adicionarLog(barbaro.derrotarMonstro());
+                GUI.adicionarLog(barbaro.derrotarMonstro());
             }
             if (!barbaroMorreu()) {
-                interfaceDeUsuario.adicionarLog(ambienteAtual.getNome());
+                GUI.adicionarLog(ambienteAtual.getNome());
                 if (ambienteAtual.quantidadeItens() > 0)
-                    interfaceDeUsuario.adicionarLog("Você encontra os seguintes itens: " + ambienteAtual.getItens());
-                interfaceDeUsuario.adicionarLogSemQuebra("Saídas: ");
+                    GUI.adicionarLog("Você encontra os seguintes itens: " + ambienteAtual.getItens());
+                GUI.adicionarLogSemQuebra("Saídas: ");
                 String saidas = ambienteAtual.getSaidas();
-                interfaceDeUsuario.adicionarLog(saidas);
+                GUI.adicionarLog(saidas);
                 redefinirInfestacao();
             }
         }
@@ -335,7 +333,7 @@ public class Jogo {
 
     private boolean barbaroMorreu() {
         if (barbaro.getEnergia() <= 0) {
-            interfaceDeUsuario.adicionarLog("Você morreu!");
+            GUI.adicionarLog("Você morreu!");
             fimDeJogo = true;
             return true;
         }
