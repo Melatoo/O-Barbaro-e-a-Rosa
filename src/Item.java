@@ -1,4 +1,4 @@
-public class Item {
+public abstract class Item {
     private String nome;
     private String descricao;
     private String localizacao;
@@ -10,14 +10,16 @@ public class Item {
     }
 
     public String getNome() {
-        return nome;
+        return nome.toLowerCase();
     }
 
     public String getDescricao() {
         return descricao;
     }
 
-    public String getLocalizacao(){
+    public String getLocalizacao() {
         return localizacao;
     }
+
+    public abstract void usar();
 }

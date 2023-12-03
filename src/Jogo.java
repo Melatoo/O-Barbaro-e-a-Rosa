@@ -6,9 +6,9 @@ public class Jogo {
     private Barbaro barbaro;
     private Comando comando;
     private Ambiente ambienteAtual;
+    private Ambiente ambienteComRosa;
     private HashMap<String, Ambiente> ambientes;
     private boolean fimDeJogo;
-
 
     private Jogo() {
         barbaro = new Barbaro();
@@ -29,29 +29,83 @@ public class Jogo {
         jogar();
     }
 
-    public void inicializarItens(){
+    public void inicializarItens() {
         Random gerador = new Random();
         String[] nomeAmbientes = ambientes.keySet().toArray(new String[ambientes.size()]);
 
         Ambiente tempAmbiente = ambientes.get(nomeAmbientes[gerador.nextInt(nomeAmbientes.length)]);
-        Machado machado = new Machado("Machado de Guerra", tempAmbiente.getNome());
+        Item machado = new Machado("Machado de Guerra", tempAmbiente.getNome());
         tempAmbiente.adicionarItem(machado);
 
         tempAmbiente = ambientes.get(nomeAmbientes[gerador.nextInt(nomeAmbientes.length)]);
-        Item dica1 = new Item("DicaMachado", "O machado está em " + machado.getLocalizacao(), tempAmbiente.getNome());
+        Item hamburguer = new Hamburguer(tempAmbiente.getNome());
+        tempAmbiente.adicionarItem(hamburguer);
+
+        ambienteComRosa = ambientes.get(nomeAmbientes[gerador.nextInt(nomeAmbientes.length)]);
+
+        String ambienteSemRosa = gerarAmbienteSemRosa();
+        String ambientePertoRosa = gerarAmbientePertoRosa();
+
+        tempAmbiente = ambientes.get(nomeAmbientes[gerador.nextInt(nomeAmbientes.length)]);
+        Item dica1 = new Dica("DicaMachado", "O machado está em " + machado.getLocalizacao(), tempAmbiente.getNome());
         tempAmbiente.adicionarItem(dica1);
 
         tempAmbiente = ambientes.get(nomeAmbientes[gerador.nextInt(nomeAmbientes.length)]);
-        Item dica2 = new Item("Dica2", "Descrição", tempAmbiente.getNome());
+        Item dica2 = new Dica("Dica2", "A rosa não está em" + ambienteSemRosa, tempAmbiente.getNome());
         tempAmbiente.adicionarItem(dica2);
 
         tempAmbiente = ambientes.get(nomeAmbientes[gerador.nextInt(nomeAmbientes.length)]);
-        Item dica3 = new Item("Dica3", "Descrição", tempAmbiente.getNome());
+        Item dica3 = new Dica("Dica3", "A rosa está perto de " + ambientePertoRosa, tempAmbiente.getNome());
         tempAmbiente.adicionarItem(dica3);
 
         tempAmbiente = ambientes.get(nomeAmbientes[gerador.nextInt(nomeAmbientes.length)]);
-        Item dica4 = new Item("Dica4", "Descrição", tempAmbiente.getNome());
+        Item dica4 = new Dica("DicaHamburguer", "O hamburguer está em " + hamburguer.getLocalizacao(),
+                tempAmbiente.getNome());
         tempAmbiente.adicionarItem(dica4);
+    }
+
+    public String gerarAmbienteSemRosa() {
+        Random gerador = new Random();
+        String[] nomeAmbientes = ambientes.keySet().toArray(new String[ambientes.size()]);
+        Ambiente ambienteAleatorio = ambientes.get(nomeAmbientes[gerador.nextInt(nomeAmbientes.length)]);
+        while (ambienteAleatorio == ambienteComRosa)
+            ambienteAleatorio = ambientes.get(nomeAmbientes[gerador.nextInt(nomeAmbientes.length)]);
+        return ambienteAleatorio.getNome();
+    }
+
+    public String gerarAmbientePertoRosa() {
+        Random gerador = new Random();
+        while (true)
+            switch (gerador.nextInt(4)) {
+                case 0:
+                    if (ambienteComRosa.getSaida("norte") != null)
+                        return ambienteComRosa.getSaida("norte").getNome();
+                    break;
+                case 1:
+                    if (ambienteComRosa.getSaida("sul") != null)
+                        return ambienteComRosa.getSaida("sul").getNome();
+                    break;
+                case 2:
+                    if (ambienteComRosa.getSaida("leste") != null)
+                        return ambienteComRosa.getSaida("leste").getNome();
+                    break;
+                case 3:
+                    if (ambienteComRosa.getSaida("oeste") != null)
+                        return ambienteComRosa.getSaida("oeste").getNome();
+                    break;
+            }
+    }
+
+    public void usarPoção() {
+        if (ambienteAtual == ambienteComRosa) {
+            System.out.println("Você encontrou a rosa!");
+            System.out.println("Você venceu o jogo!");
+            fimDeJogo = true;
+        } else {
+            System.out.println("Você não está no ambiente certo!");
+            System.out.println("A rosa estava em: " + ambienteComRosa.getNome());
+            fimDeJogo = true;
+        }
     }
 
     public void inicializarAmbientes() {
@@ -94,14 +148,14 @@ public class Jogo {
 
         ambienteAtual = ghanor;
     }
-    
+
     public void imprimirBoasVindas() {
         System.out.println();
         System.out.println("Bem-vindo ao mundo de Ghanor!");
         System.out.println("Ghanor é um mundo de fantasia medieval, cheio de magia e aventuras.");
         System.out.println("Você é um bárbaro que está em uma jornada para a rosa que salvará seus amigos.");
         System.out.println("Você precisa encontrar a rosa antes que seja tarde demais.");
-        System.out.println("Você tem " +  barbaro.getEnergia() + " de energia.");
+        System.out.println("Você tem " + barbaro.getEnergia() + " de energia.");
         ComandosConhecidos.mostrarComandos();
         System.out.println("Digite 'ajuda' se você precisar de ajuda.");
         System.out.println();
@@ -120,8 +174,10 @@ public class Jogo {
     }
 
     private void processarComando(Comando comando) {
-        if(comando.ehDesconhecido())
+        if (comando.ehDesconhecido()) {
             System.out.println("Eu não entendi o que você disse...");
+            return;
+        }
 
         String palavraDeComando = comando.getPalavraComando();
 
@@ -136,27 +192,18 @@ public class Jogo {
 
         else if (palavraDeComando.equals("observar"))
             observar();
-        
+
         else if (palavraDeComando.equals("pegar"))
-            pegarItem(comando.getSegundaPalavra());
+            barbaro.pegarItem(comando.getSegundaPalavra(), ambienteAtual);
 
         else if (palavraDeComando.equals("bolsa"))
             barbaro.olharBolsa();
 
-        else if (palavraDeComando.equals("descricao"))
-            barbaro.lerDescricaoItem(comando.getSegundaPalavra());
-    }
+        else if (palavraDeComando.equals("usar"))
+            barbaro.usarItem(comando.getSegundaPalavra());
 
-
-    private void pegarItem(String nomeItem) {
-        Item item = ambienteAtual.getItem(nomeItem);
-        if(item != null){
-            barbaro.adicionarItem(ambienteAtual.getItem(nomeItem));
-            ambienteAtual.removerItem(nomeItem);
-            System.out.println("Você pegou o item " + nomeItem + "!");
-        }
-        else
-            System.out.println("Esse item não está nesse ambiente!");
+        else if (palavraDeComando.equals("pocao"))
+            usarPoção();
     }
 
     private void observar() {
@@ -164,13 +211,12 @@ public class Jogo {
         System.out.println("Saídas: " + ambienteAtual.getSaidas());
     }
 
-    private void imprimirAjuda(){
-        System.out.println("Você está perdido. Você está só. Você caminha pela floresta.");
+    private void imprimirAjuda() {
         System.out.println("Suas palavras de comando são:");
         ComandosConhecidos.mostrarComandos();
     }
 
-    private void irParaAmbiente(Comando comando){
+    private void irParaAmbiente(Comando comando) {
         if (!comando.temSegundaPalavra()) {
             System.out.println("Ir para onde?");
             return;
@@ -179,37 +225,40 @@ public class Jogo {
         String direcao = comando.getSegundaPalavra();
         Ambiente proximoAmbiente = ambienteAtual.getSaida(direcao);
 
-        if(proximoAmbiente == null)
+        if (proximoAmbiente == null)
             System.out.println("Essa saída não existe!");
 
         else {
             ambienteAtual = proximoAmbiente;
             barbaro.andar();
-            if(ambienteAtual.getInfestado()){
+            if (ambienteAtual.getInfestado()) {
                 barbaro.derrotarMonstro();
-                if(barbaro.temMachado())
-                    System.out.println("Você derrotou um monstro com seu machado!");
-                else
-                    System.out.println("Você derrotou um monstro com suas mãos!");
             }
-            if(! barbaroMorreu()){
+            if (!barbaroMorreu()) {
                 System.out.println("Energia restante: " + barbaro.getEnergia());
                 System.out.println(ambienteAtual.getNome());
-                if(ambienteAtual.quantidadeItens() > 0)
+                if (ambienteAtual.quantidadeItens() > 0)
                     System.out.println("Você encontra os seguintes itens: " + ambienteAtual.getItens());
                 System.out.print("Saídas: ");
                 String saidas = ambienteAtual.getSaidas();
                 System.out.println(saidas);
+                redefinirInfestacao();
             }
         }
     }
 
-    private boolean barbaroMorreu(){
-        if(barbaro.getEnergia() <= 0) {
+    private boolean barbaroMorreu() {
+        if (barbaro.getEnergia() <= 0) {
             System.out.println("Você morreu!");
             fimDeJogo = true;
             return true;
         }
         return false;
+    }
+
+    private void redefinirInfestacao() {
+        for (String ambiente : ambientes.keySet()) {
+            ambientes.get(ambiente).setInfestado();
+        }
     }
 }

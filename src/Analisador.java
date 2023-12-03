@@ -11,9 +11,9 @@ public abstract class Analisador {
         Scanner tokenizer = new Scanner(comando);
 
         if (tokenizer.hasNext()) {
-            palavra1 = tokenizer.next();
+            palavra1 = tokenizer.next().toLowerCase();
             if (tokenizer.hasNext()) {
-                palavra2 = tokenizer.next();
+                palavra2 = tokenizer.next().toLowerCase();
             }
         }
 
