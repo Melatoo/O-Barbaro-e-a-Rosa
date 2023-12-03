@@ -1,3 +1,6 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -36,6 +39,7 @@ public class Jogo {
         inicializarAmbientes();
         inicializarItens();
         imprimirBoasVindas();
+        gerarGabarito();
         jogar();
     }
 
@@ -334,6 +338,26 @@ public class Jogo {
     private void redefinirInfestacao() {
         for (String ambiente : ambientes.keySet()) {
             ambientes.get(ambiente).setInfestado();
+        }
+    }
+
+    /*
+     * gera um arquivo com o gabarito do jogo, ou seja, posicao de todos os itens
+     */
+
+    private void gerarGabarito() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("gabarito.txt"))) {
+            // para cada ambiente, escreve no arquivo o item e o ambiente
+            for (String ambiente : ambientes.keySet()) {
+                String[] itens = ambientes.get(ambiente).getItens().split(" ");
+                for (String item : itens) {
+                    if (!item.equals(""))
+                        writer.write("O item " + item + " estava em " + ambiente + "\n");
+                }
+            }
+            writer.write("A rosa estava em " + ambienteComRosa.getNome() + "\n");
+        } catch (IOException e) {
+            System.out.println("Erro ao gerar gabarito");
         }
     }
 }

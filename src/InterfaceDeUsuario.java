@@ -125,7 +125,7 @@ public class InterfaceDeUsuario extends JFrame {
     private class ClickChecker implements ActionListener {
         @Override
         public void actionPerformed(java.awt.event.ActionEvent e) {
-
+            
         }
     }
 }
