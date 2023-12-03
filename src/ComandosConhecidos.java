@@ -1,7 +1,7 @@
 /*Feito por: Thiago Melato */
 
 public class ComandosConhecidos {
-    private static String[] comandos = {"ir", "sair", "ajuda", "usar poçao"};
+    private static String[] comandos = {"ir", "sair", "ajuda", "usar poçao", "pegar", "bolsa", "descricao"};
 
     public static void mostrarComandos() {
         System.out.print("Comandos disponíveis: ");

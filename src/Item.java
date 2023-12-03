@@ -1,12 +1,12 @@
-public abstract class Item {
+public class Item {
     private String nome;
     private String descricao;
-    private int durabilidade;
+    private String localizacao;
 
-    public Item(String nome, String descricao, int durabilidade) {
+    public Item(String nome, String descricao, String localizacao) {
         this.nome = nome;
         this.descricao = descricao;
-        this.durabilidade = durabilidade;
+        this.localizacao = localizacao;
     }
 
     public String getNome() {
@@ -17,11 +17,7 @@ public abstract class Item {
         return descricao;
     }
 
-    public int getDurabilidade() {
-        return durabilidade;
-    }
-
-    public void usarItem() {
-        durabilidade--;
+    public String getLocalizacao(){
+        return localizacao;
     }
 }
