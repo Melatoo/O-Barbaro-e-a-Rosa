@@ -81,7 +81,6 @@ public class Jogo {
         tempAmbiente.adicionarItem(hamburguer);
 
         ambienteComRosa = ambientes.get(nomeAmbientes[gerador.nextInt(nomeAmbientes.length)]);
-        System.out.println(ambienteComRosa.getNome());
 
         String ambienteSemRosa = gerarAmbienteSemRosa();
         String ambientePertoRosa = gerarAmbientePertoRosa();
