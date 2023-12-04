@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Random;
 
+import javax.swing.JOptionPane;
+
 import Comandos.Analisador;
 import Comandos.Comando;
 import Comandos.ComandosConhecidos;
@@ -236,6 +238,7 @@ public class Jogo {
         GUI.setEnergia(barbaro.getEnergia());
         GUI.setDurabilidade(barbaro.temMachado() ? barbaro.getDurabilidadeMachado() : 0);
         if(fimDeJogo){
+            JOptionPane.showMessageDialog(GUI, ambienteAtual == ambienteComRosa ? "Você venceu o jogo!" : "Você perdeu o jogo!");
             GUI.dispose();
         }
     }
