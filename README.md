@@ -21,4 +21,3 @@ Nesse jogo, o jogador será um bárbaro em um mundo de fantasia medieval. O joga
 ### Integrantes do projeto
 - Davi Silveira Siqueira
 - Thiago Melato Fonseca
-- Lucio Boari
