@@ -8,6 +8,7 @@ import Itens.Hamburguer;
 import Itens.Item;
 import Itens.Machado;
 
+/*Feito por: Thiago Melato e Davi Siqueira*/
 public class Barbaro {
     private int energia;
     private HashMap<String, Item> itens;
@@ -19,8 +20,10 @@ public class Barbaro {
         itens = new HashMap<String, Item>();
     }
 
-    /*
+    
+    /** 
      * adiciona um item na bolsa do barbaro
+     * @param item
      */
 
     public void adicionarItem(Item item) {
@@ -51,7 +54,7 @@ public class Barbaro {
         energia--;
     }
 
-    /*
+    /**
      * derrota um monstro, usando o machado caso ele tenha um, ou usando as mãos
      * 
      * @return String mensagem de derrota do monstro
@@ -77,7 +80,7 @@ public class Barbaro {
         return energia;
     }
 
-    /*
+    /**
      * @return String string com itens na bolsa do barbaro
      */
 
@@ -92,7 +95,7 @@ public class Barbaro {
             return "Itens na bolsa: " + itensNaBolsa;
     }
 
-    /*
+    /**
      * @param String nome do item a ser lido
      * 
      * @return String descrição do item
@@ -105,9 +108,8 @@ public class Barbaro {
             return "Esse item não está na sua bolsa!";
     }
 
-    /*
+    /**
      * @param String nome do item a ser pego
-     * 
      * @param Ambiente ambiente atual
      * 
      * @return String mensagem de confirmação ou erro
@@ -125,12 +127,15 @@ public class Barbaro {
 
     }
 
-    /*
+
+
+    
+    /** 
      * @param String nome do item a ser usado
+     * @param interfaceDeUsuario
      * 
      * @return String mensagem de confirmação ou erro
      */
-
     public String usarItem(String segundaPalavra, InterfaceDeUsuario interfaceDeUsuario) {
         Item item = itens.get(segundaPalavra);
         if (item != null) {

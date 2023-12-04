@@ -1,7 +1,7 @@
-O item dicamachado estava em Floresta Alta
-O item dicahamburguer estava em Reino de Kottar
-O item dica3 estava em Rocha Negra
 O item dica2 estava em Vila do Sacrilégio
+O item dica3 estava em Castelo do Outono Eterno
 O item machado estava em Lago de Po
-O item hamburguer estava em Reino de Ghanor
-A rosa estava em Pantanos Cinzentos
+O item dicahamburguer estava em Reino de Ghanor
+O item dicamachado estava em Abismo Sereno
+O item hamburguer estava em Pantanos Cinzentos
+A rosa estava em Reino de Ghanor

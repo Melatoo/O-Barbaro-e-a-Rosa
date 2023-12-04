@@ -15,6 +15,7 @@ import Itens.Hamburguer;
 import Itens.Item;
 import Itens.Machado;
 
+/*Feito por: Thiago Melato e Davi Siqueira*/
 public class Jogo {
     private static Jogo instance;
     private Barbaro barbaro;
@@ -32,10 +33,11 @@ public class Jogo {
         this.GUI = GUI;
     }
 
-    /*
+    /**
      * retorna a instancia do jogo, se não existir uma instancia, cria uma nova
      * sigleton
      * 
+     * @param GUI
      * @return Jogo
      */
 
@@ -46,6 +48,9 @@ public class Jogo {
         return instance;
     }
 
+    /**
+     * inicia o jogo, os ambientes, os itens e imprime as boas vindas no log do jogo
+     */
     public void iniciarJogo() {
         inicializarAmbientes();
         inicializarItens();
@@ -74,6 +79,7 @@ public class Jogo {
         tempAmbiente.adicionarItem(hamburguer);
 
         ambienteComRosa = ambientes.get(nomeAmbientes[gerador.nextInt(nomeAmbientes.length)]);
+        System.out.println(ambienteComRosa.getNome());
 
         String ambienteSemRosa = gerarAmbienteSemRosa();
         String ambientePertoRosa = gerarAmbientePertoRosa();
@@ -96,9 +102,9 @@ public class Jogo {
         tempAmbiente.adicionarItem(dica4);
     }
 
-    /*
+    
+    /** 
      * gera um ambiente aleatorio que não seja o ambiente com a rosa
-     * 
      * @return String com o nome do ambiente sem a rosa
      */
 
@@ -111,7 +117,7 @@ public class Jogo {
         return ambienteAleatorio.getNome();
     }
 
-    /*
+    /**
      * gera um ambiente aleatorio que seja adjacente ao ambiente com a rosa
      * 
      * @return String com o nome do ambiente adjacente ao ambiente com a rosa
@@ -221,7 +227,7 @@ public class Jogo {
     }
 
     /*
-     * inicia o jogo, enquanto o jogo não acabar, o jogo continua :O
+     * processa o comando inserido pelo usuario pela interface e atualiza as informações na GUI
      */
 
     public void jogar(String comandoInserido) {
@@ -234,7 +240,7 @@ public class Jogo {
         }
     }
 
-    /*
+    /**
      * processa o comando do usuario
      * 
      * @param Comando comando a ser processado
@@ -291,7 +297,7 @@ public class Jogo {
         GUI.adicionarLog(ComandosConhecidos.mostrarComandos());
     }
 
-    /*
+    /**
      * move o barbaro para o ambiente desejado
      * 
      * @param Comando comando ir com a direção desejada
@@ -327,7 +333,7 @@ public class Jogo {
         }
     }
 
-    /*
+    /**
      * verifica se o barbaro morreu
      * 
      * @return boolean true se o barbaro morreu, false se não

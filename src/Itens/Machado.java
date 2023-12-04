@@ -1,4 +1,5 @@
 package Itens;
+/*Feito por: Thiago Melato e Davi Siqueira*/
 public class Machado extends Item {
     private int durabilidade;
 
@@ -11,7 +12,7 @@ public class Machado extends Item {
         return durabilidade;
     }
 
-    /*
+    /**
      * usa o machado, diminuindo sua durabilidade
      * 
      * @return String mensagem de uso do machado

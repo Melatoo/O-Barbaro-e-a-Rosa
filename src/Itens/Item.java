@@ -1,4 +1,5 @@
 package Itens;
+/*Feito por: Thiago Melato e Davi Siqueira*/
 public abstract class Item {
     private String nome;
     private String descricao;

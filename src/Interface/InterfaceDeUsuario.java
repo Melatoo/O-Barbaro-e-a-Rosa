@@ -11,16 +11,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
-
-import Comandos.Analisador;
 import Jogo.Jogo;
-
 import java.awt.BorderLayout;
 import java.awt.Label;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.awt.image.BufferedImage;
 
+/*Feito por: Lucio Boari*/
 public class InterfaceDeUsuario extends JFrame {
 
     // esquerda
@@ -37,6 +35,7 @@ public class InterfaceDeUsuario extends JFrame {
     private String comando;
     private JButton enviaComando;
 
+    // inicializa painel de energia e durabilidade do machado
     private void inicializandoBordaEsquerda() {
         energiaRestante = new Label("Energia Restante: ");
         durabilidadeMachado = new Label("Durabilidade do Machado: ");
@@ -47,6 +46,7 @@ public class InterfaceDeUsuario extends JFrame {
         esquerda.add(durabilidadeMachado);
     }
 
+    // inicializa painel com a imagem do mapa
     private void inicializandoBordaCentro() {
         try {
             BufferedImage imagem = ImageIO.read(
@@ -59,6 +59,7 @@ public class InterfaceDeUsuario extends JFrame {
         }
     }
 
+    // inicializa painel de dicas
     private void inicializandoBordaDireita() {
         dicas = new JTextArea();
         dicas.setEditable(false);
@@ -72,6 +73,7 @@ public class InterfaceDeUsuario extends JFrame {
         direita.add(jsp);
     }
 
+    // inicializa log e entrada de comandos
     private void inicializandoBordaInferior() {
         JPanel sul = new JPanel();
         sul.setLayout(new BoxLayout(sul, BoxLayout.Y_AXIS));
@@ -110,11 +112,20 @@ public class InterfaceDeUsuario extends JFrame {
         jogo.iniciarJogo();
     }
 
+    
+    /** 
+     * adiciona mensagem de jogo ao log
+     * @param String texto a ser adicionado
+     */
     public void adicionarLog(String texto) {
         log.append(texto + "\n");
         log.setCaretPosition(log.getDocument().getLength());
     }
 
+    /** 
+     * adiciona mensagem de jogo ao log
+     * @param String texto a ser adicionado
+     */
     public void adicionarLogSemQuebra(String texto) {
         log.append(texto);
         log.setCaretPosition(log.getDocument().getLength());
@@ -128,10 +139,15 @@ public class InterfaceDeUsuario extends JFrame {
         durabilidadeMachado.setText("Durabilidade do Machado: " + durabilidade);
     }
 
+    /** 
+     * adiciona dica no painel de dicas
+     * @param String dica a ser adicionada
+     */
     public void adicionarDica(String dica) {
         dicas.append(dica + "\n");
     }
 
+    // classe para verificar se o algum comando novo foi inserido no campo de texto
     private class ClickChecker implements ActionListener {
         @Override
         public void actionPerformed(java.awt.event.ActionEvent e) {

@@ -1,12 +1,15 @@
 package Comandos;
 import java.util.Scanner;
 
+/*Feito por: Thiago Melato e Davi Siqueira*/
 public abstract class Analisador {
     private static Scanner scanner = new Scanner(System.in);
 
-    /*
+    
+    /** 
      * analisa o comando digitado pelo usuário
-     * @return Comando comando e analisado
+     * @param comandoInserido
+     * @return Comando
      */
 
     public static Comando analisarComando(String comandoInserido) {

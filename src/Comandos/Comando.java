@@ -1,6 +1,5 @@
 package Comandos;
-/*Feito por: Thiago Melato*/
-
+/*Feito por: Thiago Melato e Davi Siqueira*/
 public class Comando {
     private String palavraComando;
     private String segundaPalavra;

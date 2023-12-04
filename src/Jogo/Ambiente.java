@@ -1,11 +1,10 @@
 package Jogo;
 
-/*Feito por Thiago Melato */
 import java.util.HashMap;
 import java.util.Random;
-
 import Itens.Item;
 
+/*Feito por: Thiago Melato e Davi Siqueira*/
 public class Ambiente {
     private String nome;
     private boolean infestado;
@@ -21,8 +20,13 @@ public class Ambiente {
         this.infestado = gerador.nextInt(4) == 1;
     }
 
-    /*
-     * @param Ambiente ambientes vizinhos
+    
+    /** 
+     * ambientes vizinhos
+     * @param norte
+     * @param leste
+     * @param sul
+     * @param oeste
      */
 
     public void ajustarSaidas(Ambiente norte, Ambiente leste, Ambiente sul, Ambiente oeste) {
@@ -32,8 +36,8 @@ public class Ambiente {
         saidas.put("oeste", oeste);
     }
 
-    /*
-     * @param String direcao
+    /**
+     * @param String direcao a ser tomada
      * 
      * @return Ambiente ambiente com a direção passada
      */
@@ -42,7 +46,7 @@ public class Ambiente {
         return saidas.get(direcao);
     }
 
-    /*
+    /**
      * 
      * @return String itens no ambiente
      */
@@ -56,7 +60,7 @@ public class Ambiente {
         return itensNoAmbiente;
     }
 
-    /*
+    /**
      * adiciona um item no ambiente
      * 
      * @param Item item a ser adicionado
@@ -66,7 +70,7 @@ public class Ambiente {
         itens.put(item.getNome(), item);
     }
 
-    /*
+    /**
      * @return String todas saidas do ambiente
      */
 
@@ -91,7 +95,7 @@ public class Ambiente {
         return itens.get(nomeItem);
     }
 
-    /*
+    /**
      * remove um item do ambiente
      * 
      * @param String nome do item a ser removido

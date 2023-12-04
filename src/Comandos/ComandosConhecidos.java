@@ -1,11 +1,11 @@
 package Comandos;
-/*Feito por: Thiago Melato */
-
+/*Feito por: Thiago Melato e Davi Siqueira*/
 public class ComandosConhecidos {
     private static String[] comandos = { "ir", "sair", "ajuda", "pocao", "pegar", "bolsa", "usar",
             "observar" };
 
-    /*
+    
+    /** 
      * @return String string com os comandos disponíveis
      */
 
@@ -17,7 +17,7 @@ public class ComandosConhecidos {
         return comandosDisponiveis;
     }
 
-    /*
+    /**
      * @param String comando a ser verificado
      * 
      * @return boolean true se o comando for válido, false se não for
