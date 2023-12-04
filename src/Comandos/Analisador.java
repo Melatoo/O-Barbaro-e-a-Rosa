@@ -3,12 +3,12 @@ import java.util.Scanner;
 
 /*Feito por: Thiago Melato e Davi Siqueira*/
 public abstract class Analisador {
+    
     /** 
      * analisa o comando digitado pelo usuário
      * @param comandoInserido
      * @return Comando
      */
-
     public static Comando analisarComando(String comandoInserido) {
         String palavra1 = null;
         String palavra2 = null;
