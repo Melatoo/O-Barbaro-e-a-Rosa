@@ -1,4 +1,5 @@
 package Jogo;
+
 import java.util.HashMap;
 import java.util.Random;
 
@@ -20,9 +21,9 @@ public class Barbaro {
         itens = new HashMap<String, Item>();
     }
 
-    
-    /** 
+    /**
      * adiciona um item na bolsa do barbaro
+     * 
      * @param item
      */
 
@@ -34,7 +35,7 @@ public class Barbaro {
      * caso o barbaro tenha o hamburguer, ele come e recupera 10 de energia
      */
 
-    public String comerHambuguer() {
+    private String comerHambuguer() {
         Item hamburguer = itens.get("hamburguer");
         if (hamburguer != null) {
             hamburguer.usar();
@@ -109,7 +110,7 @@ public class Barbaro {
     }
 
     /**
-     * @param String nome do item a ser pego
+     * @param String   nome do item a ser pego
      * @param Ambiente ambiente atual
      * 
      * @return String mensagem de confirmação ou erro
@@ -127,11 +128,8 @@ public class Barbaro {
 
     }
 
-
-
-    
-    /** 
-     * @param String nome do item a ser usado
+    /**
+     * @param String             nome do item a ser usado
      * @param interfaceDeUsuario
      * 
      * @return String mensagem de confirmação ou erro

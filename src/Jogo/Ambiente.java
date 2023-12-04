@@ -20,9 +20,9 @@ public class Ambiente {
         this.infestado = gerador.nextInt(4) == 1;
     }
 
-    
-    /** 
+    /**
      * ambientes vizinhos
+     * 
      * @param norte
      * @param leste
      * @param sul

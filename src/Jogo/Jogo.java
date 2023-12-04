@@ -44,7 +44,7 @@ public class Jogo {
      */
 
     public static Jogo getInstance(InterfaceDeUsuario GUI) {
-        if (instance == null){
+        if (instance == null) {
             instance = new Jogo(GUI);
         }
         return instance;
@@ -66,7 +66,7 @@ public class Jogo {
      * inicializa os itens do jogo e os adiciona nos ambientes aleatoriamente
      */
 
-    public void inicializarItens() {
+    private void inicializarItens() {
         Random gerador = new Random();
         // retorna um array com os nomes dos ambientes
         String[] nomeAmbientes = ambientes.keySet().toArray(new String[ambientes.size()]);
@@ -104,13 +104,13 @@ public class Jogo {
         tempAmbiente.adicionarItem(dica4);
     }
 
-    
-    /** 
+    /**
      * gera um ambiente aleatorio que não seja o ambiente com a rosa
+     * 
      * @return String com o nome do ambiente sem a rosa
      */
 
-    public String gerarAmbienteSemRosa() {
+    private String gerarAmbienteSemRosa() {
         Random gerador = new Random();
         String[] nomeAmbientes = ambientes.keySet().toArray(new String[ambientes.size()]);
         Ambiente ambienteAleatorio = ambientes.get(nomeAmbientes[gerador.nextInt(nomeAmbientes.length)]);
@@ -125,7 +125,7 @@ public class Jogo {
      * @return String com o nome do ambiente adjacente ao ambiente com a rosa
      */
 
-    public String gerarAmbientePertoRosa() {
+    private String gerarAmbientePertoRosa() {
         Random gerador = new Random();
         while (true)
             switch (gerador.nextInt(4)) {
@@ -154,7 +154,7 @@ public class Jogo {
      * se não, o jogo acaba como derrota
      */
 
-    public void usarPoção() {
+    private void usarPoção() {
         if (ambienteAtual == ambienteComRosa) {
             GUI.adicionarLog("Você encontrou a rosa!");
             GUI.adicionarLog("Você venceu o jogo!");
@@ -170,7 +170,7 @@ public class Jogo {
      * inicializa os ambientes do jogo
      */
 
-    public void inicializarAmbientes() {
+    private void inicializarAmbientes() {
         Ambiente ghanor = new Ambiente("Reino de Ghanor");
         Ambiente floresta = new Ambiente("Floresta Alta");
         Ambiente rochaCeleste = new Ambiente("Rocha Celeste");
@@ -214,7 +214,7 @@ public class Jogo {
      * imprime as boas vindas do jogo
      */
 
-    public void imprimirBoasVindas() {
+    private void imprimirBoasVindas() {
         GUI.adicionarLog("Bem-vindo ao mundo de Ghanor!");
         GUI.adicionarLog("Ghanor é um mundo de fantasia medieval, cheio de magia e aventuras.");
         GUI.adicionarLog("Você é um bárbaro que está em uma jornada para a rosa que salvará seus amigos.");
@@ -229,7 +229,8 @@ public class Jogo {
     }
 
     /*
-     * processa o comando inserido pelo usuario pela interface e atualiza as informações na GUI
+     * processa o comando inserido pelo usuario pela interface e atualiza as
+     * informações na GUI
      */
 
     public void jogar(String comandoInserido) {
@@ -237,8 +238,9 @@ public class Jogo {
         processarComando(comando);
         GUI.setEnergia(barbaro.getEnergia());
         GUI.setDurabilidade(barbaro.temMachado() ? barbaro.getDurabilidadeMachado() : 0);
-        if(fimDeJogo){
-            JOptionPane.showMessageDialog(GUI, ambienteAtual == ambienteComRosa ? "Você venceu o jogo!" : "Você perdeu o jogo!");
+        if (fimDeJogo) {
+            JOptionPane.showMessageDialog(GUI,
+                    ambienteAtual == ambienteComRosa ? "Você venceu o jogo!" : "Você perdeu o jogo!");
             GUI.dispose();
         }
     }
