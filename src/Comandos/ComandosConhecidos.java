@@ -1,6 +1,6 @@
 package Comandos;
 /*Feito por: Thiago Melato e Davi Siqueira*/
-public class ComandosConhecidos {
+public abstract class ComandosConhecidos {
     private static String[] comandos = { "ir", "sair", "ajuda", "pocao", "pegar", "bolsa", "usar",
             "observar" };
 

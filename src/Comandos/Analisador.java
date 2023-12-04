@@ -3,9 +3,6 @@ import java.util.Scanner;
 
 /*Feito por: Thiago Melato e Davi Siqueira*/
 public abstract class Analisador {
-    private static Scanner scanner = new Scanner(System.in);
-
-    
     /** 
      * analisa o comando digitado pelo usuário
      * @param comandoInserido
